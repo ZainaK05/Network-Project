@@ -1,4 +1,3 @@
-
 import os
 import socket
 import threading
@@ -20,7 +19,8 @@ SERVER_DATA_PATH = "server_data"
 #filesharing protocol
 SEPARATOR = "<SEPARATOR>"
 #place a filename from the directory here:
-filename = "25MB.bin"
+
+filename = "test.txt"
 filesize = os.path.getsize(filename)
 
 def main():
@@ -29,14 +29,21 @@ def main():
     client.connect(ADDR)
 
     client.send(f"{filename}{SEPARATOR}{filesize}".encode())
-    progress = tqdm.tqdm(range(filesize), f"Sending {filename}", unit="B", unit_scale=True, unit_divisor=1024)
+    progress = tqdm.tqdm(range(filesize), f"Sending {filename}", unit="B", unit_scale=True, unit_divisor=SIZE)
     with open(filename, "rb") as f:
         while True:
-            bytes_read = f.read(SIZE)
+
+            print("File size before open: ", os.path.getsize(filename))
+
+            bytes_read = open(filename, "rb").read(SIZE)
+            print("File size after open: ", os.path.getsize(filename))
             if not bytes_read:
                 break
             client.sendall(bytes_read)
+            print("File size after send: ", os.path.getsize(filename))
             progress.update(len(bytes_read))
+            print("File size after progress.update: ", os.path.getsize(filename))
+
 
 
 
