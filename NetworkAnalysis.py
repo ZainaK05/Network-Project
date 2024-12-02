@@ -2,9 +2,6 @@ import tkinter as tk
 import pickle
 from pathlib import Path
 
-test = tk.Tk()
-button = tk.Button()
-
 client = Path("/clientData.pickle")
 server = Path("/serverData.pickle")
 
