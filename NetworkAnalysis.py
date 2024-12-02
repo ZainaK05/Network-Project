@@ -29,3 +29,5 @@ if client.is_file() and server.is_file():
     # downloadRate = serverDict["FileSize"] / downloadTime
     # print(downloadTime * 1000, "milliseconds")
     # print(downloadRate, "bytes per second")
+else:
+    print("You are missing data, please ensure you have the pickled files for both client and server")
