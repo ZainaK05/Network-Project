@@ -79,7 +79,7 @@ class FileSharingClient(tk.Tk):
 
     # Login button, authenticates username and password to allow access to other buttons
     def login(self):
-        """Login user and authenticate with server"""
+        # Login user
         self.username = self.username_entry.get()
         self.password = self.password_entry.get()
 
