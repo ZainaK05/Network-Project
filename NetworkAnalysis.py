@@ -1,26 +1,31 @@
 import tkinter as tk
 import pickle
+from pathlib import Path
 
 test = tk.Tk()
 button = tk.Button()
 
-with open("clientData.pickle", "rb") as infile:
-    clientDict = pickle.load(infile)
-print(clientDict)
+client = Path("/clientData.pickle")
+server = Path("/serverData.pickle")
 
-with open("serverData.pickle", "rb") as infile:
-    serverDict = pickle.load(infile)
-print(serverDict)
+if client.is_file() and server.is_file():
+    with open("clientData.pickle", "rb") as infile:
+        clientDict = pickle.load(infile)
+    print(clientDict)
 
-responseTime = round((serverDict["EndTime"] - clientDict["StartTime"]) * 1000, 3)
-print(f"\nResponse Time: {responseTime} milliseconds")
+    with open("serverData.pickle", "rb") as infile:
+        serverDict = pickle.load(infile)
+    print(serverDict)
 
-uploadTime = round((clientDict["UploadEnd"] - clientDict["UploadStart"]), 3)
-uploadRate = round(clientDict["FileSize"] / (clientDict["UploadEnd"] - clientDict["UploadStart"]), 1)
-print(f"Upload Time: {uploadTime} milliseconds")
-print(f"Upload Rate: {uploadRate} bytes per second")
+    responseTime = round((serverDict["EndTime"] - clientDict["StartTime"]) * 1000, 3)
+    print(f"\nResponse Time: {responseTime} milliseconds")
 
-# downloadTime = (serverDict["DownloadEnd"] - serverDict["DownloadStart"])
-# downloadRate = serverDict["FileSize"] / downloadTime
-# print(downloadTime * 1000, "milliseconds")
-# print(downloadRate, "bytes per second")
+    uploadTime = round((clientDict["UploadEnd"] - clientDict["UploadStart"]), 3)
+    uploadRate = round(clientDict["FileSize"] / (clientDict["UploadEnd"] - clientDict["UploadStart"]), 1)
+    print(f"Upload Time: {uploadTime} milliseconds")
+    print(f"Upload Rate: {uploadRate} bytes per second")
+
+    # downloadTime = (serverDict["DownloadEnd"] - serverDict["DownloadStart"])
+    # downloadRate = serverDict["FileSize"] / downloadTime
+    # print(downloadTime * 1000, "milliseconds")
+    # print(downloadRate, "bytes per second")
