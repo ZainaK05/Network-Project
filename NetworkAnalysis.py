@@ -1,10 +1,14 @@
+
+# header files
 import tkinter as tk
 import pickle
 from pathlib import Path
 
+# creates variables for the file paths
 client = Path("/clientData.pickle")
 server = Path("/serverData.pickle")
 
+# checks if files exist
 if client.is_file() and server.is_file():
     with open("clientData.pickle", "rb") as infile:
         clientDict = pickle.load(infile)
